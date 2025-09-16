@@ -20,7 +20,7 @@ let separateRoots A B N =
     [
     while cur < B do
         if f cur * f (cur + h) <= 0 then
-            printfn "Найден корень на %d-м отрезке: [%g, %g]" i cur (cur + h)
+            printfn "Найден корень на %d-м отрезке: [%A, %A]" i cur (cur + h)
             yield i
         cur <- cur + h
         i <- i + 1
@@ -37,7 +37,7 @@ let getRootBisect left right epsilon =
     let mutable i = 0
 
     while right - left >= 2.0 * epsilon do
-        printfn "Шаг %d, текущий отрезок: [%g, %g]" i left right
+        printfn "Шаг %d, текущий отрезок: [%A, %A]" i left right
 
         if f left * f mid <= 0 then
             right <- mid
@@ -55,14 +55,14 @@ let getRootNewtonGeneric msg next left right epsilon =
     printfn "%s" msg
 
     let x_0 = (left + right) / 2.0
-    printfn "0-е приближение: %g" x_0
+    printfn "0-е приближение: %A" x_0
 
     let mutable prev = x_0
     let mutable cur = next prev x_0
     let mutable i = 1
 
     while abs (cur - prev) >= epsilon do
-        printfn "%d-е приближение: %g" i cur
+        printfn "%d-е приближение: %A" i cur
         prev <- cur
         cur <- next prev x_0
         i <- i + 1
@@ -84,15 +84,15 @@ let getRootSecant left right epsilon =
 
     let mutable prev = left
     let mutable cur = right
-    printfn "0-е приближение: %g" prev
-    printfn "1-е приближение: %g" cur
+    printfn "0-е приближение: %A" prev
+    printfn "1-е приближение: %A" cur
 
     let next' cur prev = cur - f cur * (cur - prev) / (f cur - f prev)
     let mutable next = next' cur prev
     let mutable i = 2
 
     while abs (next - cur) >= epsilon do
-        printfn "%d-е приближение: %g" i next
+        printfn "%d-е приближение: %A" i next
         prev <- cur
         cur <- next
         next <- next' cur prev
@@ -272,14 +272,14 @@ let rec readSecondMenuAction () =
 
 let printFirstMenuParams A B N epsilon =
     printfn "
-[A, B] = [%g, %g]
+[A, B] = [%A, %A]
 N = %d
-h = %g
-epsilon = %g" A B N (step A B N) epsilon
+h = %A
+epsilon = %A" A B N (step A B N) epsilon
 
 let printSecondMenuParams A B N i method =
     printfn "
-Уточнение на отрезке [%g, %g]
+Уточнение на отрезке [%A, %A]
 Используется %s" (left A B N i) (right A B N i) (methodToStr method)
 
 [<TailCall>]
@@ -301,8 +301,8 @@ let rec openFirstMenu A B N epsilon =
             let left = left A B N i
             let right = right A B N i
             let root = methodToFunc method left right epsilon
-            printfn "Найден корень требуемой точности: %g" root
-            printfn "Вычисленная невязка: %g" (f root)
+            printfn "Найден корень требуемой точности: %A" root
+            printfn "Абсолютная величина невязки: %A" (abs <| f root)
             openSecondMenu A B N epsilon sections i method
 
     match readFirstMenuAction () with
