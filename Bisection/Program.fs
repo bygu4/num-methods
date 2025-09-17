@@ -88,7 +88,7 @@ let rec openFirstMenu f f' A B N epsilon =
         | StartComputation ->
             let left = left A B N i
             let right = right A B N i
-            let root = methodToFunc method f f' left right epsilon
+            let root = methodToFunc method false f f' left right epsilon
             printfn "Найден корень требуемой точности: %A" root
             printfn "Абсолютная величина невязки: %A" (abs <| f root)
             openSecondMenu f f' A B N epsilon sections i method
@@ -105,7 +105,7 @@ let rec openFirstMenu f f' A B N epsilon =
         let epsilon = readEpsilon ()
         openFirstMenu f f' A B N epsilon
     | StartRootSeparation ->
-        match separateRoots f A B N with
+        match separateRoots false f A B N with
         | [] ->
             printfn "Корней не найдено, попробуйте другие параметры"
             openFirstMenu f f' A B N epsilon
