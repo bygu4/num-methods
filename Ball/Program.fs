@@ -40,7 +40,7 @@ let printTableWithDensity radius =
 
     let printTableHeader () =
         printfn "\n\tВещество\tПлотность (г/мл)\tГлубина погружения (см)"
-        printfn "%s" (String.replicate 70 "-")
+        printfn "%s" (String.replicate 71 "-")
 
     let printTableRow i material density depth =
         printfn "%d\t%s\t%A\t\t\t%A" i material density (depth * 100.0)
