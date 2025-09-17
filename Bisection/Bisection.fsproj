@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Methods.fs" />
+    <Compile Include="Console.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
