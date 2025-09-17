@@ -326,8 +326,17 @@ let rec openFirstMenu A B N epsilon =
             let method = readMethod ()
             openSecondMenu A B N epsilon sections i method
 
+let printHeader () =
+    printfn "
+Методы решения нелинейного уравнения
+
+Вариант 4
+f(x) = sqrt(4x + 7) - 3cos(x)
+"
+
 // ------------ Точка входа ------------
 
+printHeader ()
 let A, B = readSectionBounds ()
 let N = readNumberOfSections ()
 let epsilon = readEpsilon ()
