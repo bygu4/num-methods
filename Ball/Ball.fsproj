@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bisection\Bisection.fsproj" />
+    <ProjectReference Include="..\Roots\Roots.fsproj" />
   </ItemGroup>
 
 </Project>
