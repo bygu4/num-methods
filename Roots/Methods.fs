@@ -121,15 +121,15 @@ let newtonModMethodStr = "модифицированный метод Ньюто
 [<Literal>]
 let secantMethodStr = "метод секущих"
 
-let methodToStr method =
-    match method with
+let methodToStr =
+    function
     | Bisect -> bisectMethodStr
     | Newton -> newtonMethodStr
     | NewtonMod -> newtonModMethodStr
     | Secant -> secantMethodStr
 
-let methodToFunc method =
-    match method with
+let methodToFunc =
+    function
     | Bisect -> getRootBisect
     | Newton -> getRootNewton
     | NewtonMod -> getRootNewtonMod
