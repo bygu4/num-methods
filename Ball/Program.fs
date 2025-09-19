@@ -8,15 +8,15 @@ let f' r d = Math.PI / 3.0 * (3.0 * d ** 2.0 - 6.0 * d * r)
 let f'' r d = Math.PI / 3.0 * (6.0 * d - 6.0 * r)
 
 let table = [
-    "Пробка\t", 0.25;
-    "Бамбук\t", 0.4;
+    "Пробка", 0.25;
+    "Бамбук", 0.4;
     "Сосна (белая)", 0.5;
-    "Кедр\t", 0.55;
-    "Дуб\t", 0.7;
-    "Бук\t", 0.75;
+    "Кедр", 0.55;
+    "Дуб", 0.7;
+    "Бук", 0.75;
     "Красное дерево", 0.8;
     "Тиковое дерево", 0.85;
-    "Парафин\t", 0.9;
+    "Парафин", 0.9;
     "Лёд/Полиэтилен", 0.92;
     "Пчелиный воск", 0.95;
 ]
@@ -43,7 +43,7 @@ let printTableWithDensity radius =
         printfn "%s" (String.replicate 71 "-")
 
     let printTableRow i material density depth =
-        printfn "%d\t%s\t%A\t\t\t%A" i material density (depth * 100.0)
+        printfn "%d\t%-16s%A\t\t\t%A" i material density (depth * 100.0)
 
     printTableHeader ()
     let mutable i = 1
