@@ -71,8 +71,6 @@ let printPointsTable f (points : double seq) =
         printTableRow i x_i f
         i <- i + 1
 
-    printf "\n"
-
 let printSortedTable f (points : double seq) x =
     let printTableHeader () =
         printfn "i\tx_i\t\t|x - x_i|\tf(x_i)"
@@ -86,8 +84,6 @@ let printSortedTable f (points : double seq) x =
     for x_i in points do
         printTableRow i x_i x f
         i <- i + 1
-
-    printf "\n"
 
 // ------------ Представление в форме Лагранжа ------------
 

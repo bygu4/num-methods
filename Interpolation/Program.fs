@@ -101,6 +101,7 @@ let rec openFirstMenu f A B m pointType =
             let sorted = sortFromPoint x points
             printfn "\nБлижайшие к x точки:\n"
             printSortedTable f sorted x
+            waitForAnyKey ()
 
             let filtered = List.take (n + 1) sorted
             printfn "Взяты первые %d точек" (n + 1)
@@ -108,6 +109,7 @@ let rec openFirstMenu f A B m pointType =
             let res = methodToFunc method false f filtered x
             printfn "Вычисленное значение в точке: P_n(x) = %A" res
             printfn "Абсолютная погрешность: |f(x) - P_n(x)| = %A" (f x - res)
+            waitForAnyKey ()
             openSecondMenu f A B m pointType points n x method
 
     match readFirstMenuAction () with
@@ -125,6 +127,7 @@ let rec openFirstMenu f A B m pointType =
         let points = generatePoints pointType A B m
         printfn "\nСгенерированы %d точек:\n" m
         printPointsTable f points
+        waitForAnyKey ()
 
         let n = readPolynomialDegree m
         let x = readInterpolationPoint ()

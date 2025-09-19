@@ -5,6 +5,11 @@ open Methods
 
 // ------------ Пользовательский ввод ------------
 
+let waitForAnyKey () =
+    printf "\nНажмите любую клавишу, чтобы продолжить"
+    ignore <| Console.ReadKey true
+    Console.Write ("\r" + String.replicate Console.BufferWidth " " + "\r")
+
 [<TailCall>]
 let rec readInt msg =
     printf "%s" msg

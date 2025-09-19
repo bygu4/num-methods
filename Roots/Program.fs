@@ -99,6 +99,7 @@ let rec openFirstMenu f f' A B N epsilon =
             let root = methodToFunc method false f f' left right epsilon
             printfn "Найден корень требуемой точности: %A" root
             printfn "Абсолютная величина невязки: %A" (abs <| f root)
+            waitForAnyKey ()
             openSecondMenu f f' A B N epsilon sections i method
 
     match readFirstMenuAction () with
@@ -116,8 +117,10 @@ let rec openFirstMenu f f' A B N epsilon =
         match separateRoots false f A B N with
         | [] ->
             printfn "Корней не найдено, попробуйте другие параметры"
+            waitForAnyKey ()
             openFirstMenu f f' A B N epsilon
         | _ as sections ->
+            waitForAnyKey ()
             let i = readTargetSection sections
             let method = readMethod ()
             openSecondMenu f f' A B N epsilon sections i method
