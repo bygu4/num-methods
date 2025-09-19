@@ -108,7 +108,7 @@ let rec openFirstMenu f A B m pointType =
 
             let res = methodToFunc method false f filtered x
             printfn "Вычисленное значение в точке: P_n(x) = %A" res
-            printfn "Абсолютная погрешность: |f(x) - P_n(x)| = %A" (f x - res)
+            printfn "Абсолютная погрешность: |f(x) - P_n(x)| = %A" (abs <| f x - res)
             waitForAnyKey ()
             openSecondMenu f A B m pointType points n x method
 
