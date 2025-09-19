@@ -1,6 +1,14 @@
 ﻿open Methods
 open Console
 
+let printHeader () =
+    printfn "
+Методы решения нелинейного уравнения
+
+Вариант 4
+f(x) = sqrt(4x + 7) - 3cos(x)
+"
+
 let f x = sqrt (4.0 * x + 7.0) - 3.0 * cos x
 let f' x = 2.0 / sqrt (4.0 * x + 7.0) + 3.0 * sin x
 let f'' x = -4.0 / (4.0 * x + 7.0) ** (3.0 / 2.0) + 3.0 * cos x
@@ -113,14 +121,6 @@ let rec openFirstMenu f f' A B N epsilon =
             let i = readTargetSection sections
             let method = readMethod ()
             openSecondMenu f f' A B N epsilon sections i method
-
-let printHeader () =
-    printfn "
-Методы решения нелинейного уравнения
-
-Вариант 4
-f(x) = sqrt(4x + 7) - 3cos(x)
-"
 
 // ------------ Точка входа ------------
 
