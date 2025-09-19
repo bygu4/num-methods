@@ -105,7 +105,7 @@ let rec openFirstMenu f A B m pointType =
             let filtered = List.take (n + 1) sorted
             printfn "Взяты первые %d точек" (n + 1)
 
-            let res = methodToFunc method f filtered x
+            let res = methodToFunc method false f filtered x
             printfn "Вычисленное значение в точке: P_n(x) = %A" res
             printfn "Абсолютная погрешность: |f(x) - P_n(x)| = %A" (f x - res)
             openSecondMenu f A B m pointType points n x method

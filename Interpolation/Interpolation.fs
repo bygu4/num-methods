@@ -2,6 +2,11 @@ module Interpolation
 
 open System
 
+let private log quiet fmt =
+    Printf.kprintf (fun msg ->
+        if not quiet then printfn "%s" msg
+    ) fmt
+
 // ------------ Узлы интерполирования ------------
 
 type PointType =
@@ -95,10 +100,14 @@ let private t points i x =
 let private l points i x =
     t points i x / t points i points.[i]
 
-let interpolateLagrange f points x =
-    { 0 .. List.length points - 1 }
-    |> Seq.map (fun i -> l points i x * f points.[i])
-    |> Seq.sum
+let interpolateLagrange quiet f points x =
+    let coefficients = List.mapi (fun i _ -> l points i x) points
+    List.iteri (log quiet "Значение %d-го лагранжевого коэффициента: %A") coefficients
+    log quiet "Сумма значений лагранжевых коэффициентов: %A" (List.sum coefficients)
+
+    coefficients
+    |> List.mapi (fun i c -> c * f points.[i])
+    |> List.sum
 
 // ------------ Представление в форме Ньютона ------------
 
@@ -114,9 +123,10 @@ let private getCoefficients f points =
 
     table |> List.rev |> List.map Array.head
 
-let interpolateNewton f points x =
-    let coefficients = getCoefficients f points
+let interpolateNewton quiet f points x =
     let len = List.length points
+    let coefficients = getCoefficients f points
+    List.iteri (log quiet "Коэффициент A_%d: %A") coefficients
 
     let mutable res = double coefficients.[len - 1]
     for i in { len - 2 .. -1 .. 0 } do
