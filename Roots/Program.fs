@@ -19,13 +19,13 @@ type FirstMenuAction =
     | ExitProgram
     | ReadSectionBounds
     | ReadNumberOfSections
-    | ReadEpsilon
     | StartRootSeparation
 
 type SecondMenuAction =
     | ExitMenu
     | ReadTargetSection
     | ReadMethod
+    | ReadEpsilon
     | StartComputation
 
 [<TailCall>]
@@ -35,15 +35,13 @@ let rec readFirstMenuAction () =
 \t0 --- выйти из программы
 \t1 --- выбрать границы отрезка
 \t2 --- выбрать число отрезков табуляции
-\t3 --- выбрать точность вычисления
-\t4 --- начать отделение корней
+\t3 --- начать отделение корней
 "
     match readInt "Выберите действие: " with
     | 0 -> ExitProgram
     | 1 -> ReadSectionBounds
     | 2 -> ReadNumberOfSections
-    | 3 -> ReadEpsilon
-    | 4 -> StartRootSeparation
+    | 3 -> StartRootSeparation
     | _ ->
         printfn "Неизвестное действие, попробуйте снова"
         readFirstMenuAction ()
@@ -55,80 +53,82 @@ let rec readSecondMenuAction () =
 \t0 --- перейти назад
 \t1 --- выбрать целевой отрезок
 \t2 --- выбрать метод уточнения корня
-\t3 --- начать уточнение корня
+\t3 --- выбрать точность вычисления
+\t4 --- начать уточнение корня
 "
     match readInt "Выберите действие: " with
     | 0 -> ExitMenu
     | 1 -> ReadTargetSection
     | 2 -> ReadMethod
-    | 3 -> StartComputation
+    | 3 -> ReadEpsilon
+    | 4 -> StartComputation
     | _ -> 
         printfn "Неизвестное действие, попробуйте снова"
         readSecondMenuAction ()
 
-let printFirstMenuParams A B N epsilon =
+let printFirstMenuParams A B N =
     printfn "
 [A, B] = [%A, %A]
 N = %d
-h = %A
-epsilon = %A" A B N (step A B N) epsilon
+h = %A" A B N (step A B N)
 
-let printSecondMenuParams A B N i method =
+let printSecondMenuParams A B N i method epsilon =
     printfn "
 Уточнение на отрезке [%A, %A]
-Используется %s" (left A B N i) (right A B N i) (methodToStr method)
+Используется %s
+epsilon = %A" (left A B N i) (right A B N i) (methodToStr method) epsilon
 
 [<TailCall>]
-let rec openFirstMenu f f' A B N epsilon =
-    printFirstMenuParams A B N epsilon
+let rec openFirstMenu f f' A B N =
+    printFirstMenuParams A B N
 
-    let rec openSecondMenu f f' A B N epsilon sections i method =
-        printSecondMenuParams A B N i method
+    let rec openSecondMenu f f' A B N sections i method epsilon =
+        printSecondMenuParams A B N i method epsilon
 
         match readSecondMenuAction () with
-        | ExitMenu -> openFirstMenu f f' A B N epsilon
+        | ExitMenu -> openFirstMenu f f' A B N
         | ReadTargetSection ->
             let i = readTargetSection sections
-            openSecondMenu f f' A B N epsilon sections i method
+            openSecondMenu f f' A B N sections i method epsilon
         | ReadMethod ->
             let method = readMethod ()
-            openSecondMenu f f' A B N epsilon sections i method
+            openSecondMenu f f' A B N sections i method epsilon
+        | ReadEpsilon ->
+            let epsilon = readEpsilon ()
+            openSecondMenu f f' A B N sections i method epsilon
         | StartComputation ->
             let left = left A B N i
             let right = right A B N i
             let root = methodToFunc method false f f' left right epsilon
-            printfn "Найден корень требуемой точности: %A" root
+            printfn "Найден корень требуемой точности: %.16g" root
             printfn "Абсолютная величина невязки: %A" (abs <| f root)
             waitForAnyKey ()
-            openSecondMenu f f' A B N epsilon sections i method
+            openSecondMenu f f' A B N sections i method epsilon
 
     match readFirstMenuAction () with
     | ExitProgram -> exit 0
     | ReadSectionBounds ->
         let A, B = readSectionBounds ()
-        openFirstMenu f f' A B N epsilon
+        openFirstMenu f f' A B N
     | ReadNumberOfSections ->
         let N = readNumberOfSections ()
-        openFirstMenu f f' A B N epsilon
-    | ReadEpsilon ->
-        let epsilon = readEpsilon ()
-        openFirstMenu f f' A B N epsilon
+        openFirstMenu f f' A B N
     | StartRootSeparation ->
         match separateRoots false f A B N with
         | [] ->
             printfn "Корней не найдено, попробуйте другие параметры"
             waitForAnyKey ()
-            openFirstMenu f f' A B N epsilon
+            openFirstMenu f f' A B N
         | _ as sections ->
             waitForAnyKey ()
             let i = readTargetSection sections
             let method = readMethod ()
-            openSecondMenu f f' A B N epsilon sections i method
+            let epsilon = readEpsilon ()
+            openSecondMenu f f' A B N sections i method epsilon
 
 // ------------ Точка входа ------------
 
 printHeader ()
 let A, B = readSectionBounds ()
 let N = readNumberOfSections ()
-let epsilon = readEpsilon ()
-openFirstMenu f f' A B N epsilon
+openFirstMenu f f' A B N

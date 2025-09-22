@@ -97,6 +97,8 @@ let private l points i x =
     t points i x / t points i points.[i]
 
 let interpolateLagrange quiet f (points : double list) x =
+    log quiet "Начат поиск многочлена в форме Лагранжа"
+
     let coefficients = List.mapi (fun i _ -> l points i x) points
     List.iteri (log quiet "Значение %d-го лагранжевого коэффициента: %A") coefficients
     log quiet "Сумма значений лагранжевых коэффициентов: %A" (List.sum coefficients)
@@ -120,6 +122,8 @@ let private getCoefficients f points =
     table |> List.rev |> List.map Array.head
 
 let interpolateNewton quiet f (points : double list) x =
+    log quiet "Начат поиск многочлена в форме Ньютона"
+
     let len = List.length points
     let coefficients = getCoefficients f points
     List.iteri (log quiet "Коэффициент A_%d: %A") coefficients
