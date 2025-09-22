@@ -48,6 +48,7 @@ let getRootBisect quiet (f : float -> float) _ left right epsilon =
         mid <- (left + right) / 2.0
         i <- i + 1
 
+    log quiet "Шаг %d, текущий отрезок: [%A, %A]" i left right
     mid
 
 // ------------ Метод Ньютона (+ модифицированный) ------------
@@ -68,6 +69,7 @@ let private getRootNewtonGeneric msg next quiet f f' left right epsilon =
         cur <- next f f' prev x_0
         i <- i + 1
 
+    log quiet "%d-е приближение: %A" i cur
     cur
 
 let getRootNewton =
@@ -99,6 +101,7 @@ let getRootSecant quiet f _ left right epsilon =
         next <- next' f cur prev
         i <- i + 1
 
+    log quiet "%d-е приближение: %A" i next
     next
 
 // ------------ Работа с методами вычислений ------------
