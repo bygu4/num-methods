@@ -10,6 +10,10 @@ let waitForAnyKey () =
     ignore <| Console.ReadKey true
     Console.Write ("\r" + String.replicate Console.BufferWidth " " + "\r")
 
+let readString msg =
+    printf "%s" msg
+    Console.ReadLine ()
+
 [<TailCall>]
 let rec readInt msg =
     printf "%s" msg

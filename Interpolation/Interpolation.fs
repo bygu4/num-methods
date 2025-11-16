@@ -28,7 +28,7 @@ let generateEquidistantPoints A B m =
     let mutable cur = A
 
     [
-    for _ in { 1 .. m } do
+    for _ in seq { 1 .. m } do
         yield cur
         cur <- cur + (B - A) / double (m - 1)
     ]
@@ -44,7 +44,7 @@ let generateRandomPoints A B m =
         else
             nextRandomPoint A B points
 
-    for _ in { 1 .. m } do
+    for _ in seq { 1 .. m } do
         points <- nextRandomPoint A B points :: points
 
     points
@@ -113,9 +113,9 @@ let private getCoefficients f points =
     let len = List.length points
 
     let mutable table = [ Array.ofList <| List.map f points ]
-    for i in { 1 .. len - 1 } do
+    for i in seq { 1 .. len - 1 } do
         table <- [|
-        for j in { 1 .. len - i } do
+        for j in seq { 1 .. len - i } do
             yield (table.Head.[j] - table.Head.[j - 1]) / (points.[j + i - 1] - points.[j - 1])
         |] :: table
 
@@ -129,7 +129,7 @@ let interpolateNewton quiet f (points : double list) x =
     List.iteri (log quiet "Коэффициент A_%d: %A") coefficients
 
     let mutable res = coefficients.[len - 1]
-    for i in { len - 2 .. -1 .. 0 } do
+    for i in seq { len - 2 .. -1 .. 0 } do
         res <- coefficients.[i] + (x - points.[i]) * res
 
     res
