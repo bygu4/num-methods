@@ -1,13 +1,24 @@
 module Console
 
+open Common
 open Interpolation
-open Console
 
 // ------------ Пользовательский ввод ------------
 
 [<TailCall>]
+let rec readSectionBounds () =
+    let A = readDouble "Введите левую границу отрезка (A): "
+    let B = readDouble "Введите правую границу отрезка (B > A): "
+
+    if A < B then A, B
+    else
+
+    printfn "Требуется A < B, попробуйте снова"
+    readSectionBounds ()
+
+[<TailCall>]
 let rec readNumberOfPoints () =
-    let m = readInt "Введите число узлов интерполирования (m): "
+    let m = readInt "Введите число узлов интерполирования (m >= 1): "
 
     if m >= 1 then m
     else
@@ -17,7 +28,7 @@ let rec readNumberOfPoints () =
 
 [<TailCall>]
 let rec readPolynomialDegree m =
-    let n = readInt "Введите степень интерполяционного многочлена (n): "
+    let n = readInt "Введите степень интерполяционного многочлена (0 <= n <= m - 1): "
 
     if n >= 0 && n <= m - 1 then n
     else

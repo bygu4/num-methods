@@ -1,4 +1,5 @@
-﻿open Functions
+﻿open Common
+open Functions
 open Differentiation
 open Console
 

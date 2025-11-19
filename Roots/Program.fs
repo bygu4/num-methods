@@ -1,4 +1,5 @@
-﻿open Methods
+﻿open Common
+open Methods
 open Console
 
 let printHeader () =

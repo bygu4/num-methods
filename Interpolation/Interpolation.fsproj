@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Roots\Roots.fsproj" />
+    <ProjectReference Include="..\Common\Common.fsproj" />
   </ItemGroup>
 
 </Project>

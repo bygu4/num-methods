@@ -1,7 +1,7 @@
 ﻿open System
 
+open Common
 open Methods
-open Console
 
 let f r rho d = Math.PI / 3.0 * (d ** 3.0 - 3.0 * d ** 2.0 * r + 4.0 * r ** 3.0 * rho)
 let f' r d = Math.PI / 3.0 * (3.0 * d ** 2.0 - 6.0 * d * r)
@@ -23,7 +23,7 @@ let table = [
 
 [<TailCall>]
 let rec readRadius () =
-    let r = readDouble "Введите радиус шара (в см): "
+    let r = readDouble "Введите радиус шара (r > 0, в см.): "
 
     if r > 0 then r / 100.0
     else

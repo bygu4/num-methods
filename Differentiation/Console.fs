@@ -1,7 +1,7 @@
 module Console
 
+open Common
 open Functions
-open Console
 
 // ------------ Пользовательский ввод ------------
 
@@ -25,7 +25,7 @@ let rec readFunctionKind () =
 
 [<TailCall>]
 let rec readNumberOfPoints () =
-    let m = readInt "Введите число точек (m): "
+    let m = readInt "Введите число точек (m >= 5): "
 
     if m >= 5 then m
     else
@@ -38,7 +38,7 @@ let rec readStartingPoint () =
 
 [<TailCall>]
 let rec readStep () =
-    let h = readDouble "Введите шаг (h): "
+    let h = readDouble "Введите шаг (h > 0): "
 
     if h > 0 then h
     else

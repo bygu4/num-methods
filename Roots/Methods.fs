@@ -1,13 +1,10 @@
 module Methods
 
+open Common
+
 let step A B N = (B - A) / double N
 let left A B N i = A + step A B N * double i
 let right A B N i = left A B N i + step A B N
-
-let private log quiet fmt =
-    Printf.kprintf (fun msg ->
-        if not quiet then printfn "%s" msg
-    ) fmt
 
 // ------------ Отделение корней ------------
 

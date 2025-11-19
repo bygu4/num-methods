@@ -2,10 +2,7 @@ module Interpolation
 
 open System
 
-let private log quiet fmt =
-    Printf.kprintf (fun msg ->
-        if not quiet then printfn "%s" msg
-    ) fmt
+open Common
 
 // ------------ Узлы интерполирования ------------
 

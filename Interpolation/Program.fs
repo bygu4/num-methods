@@ -1,4 +1,5 @@
-﻿open Interpolation
+﻿open Common
+open Interpolation
 open Console
 
 let printHeader () =

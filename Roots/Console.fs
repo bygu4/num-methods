@@ -1,45 +1,14 @@
 module Console
 
-open System
+open Common
 open Methods
 
 // ------------ Пользовательский ввод ------------
 
-let waitForAnyKey () =
-    printf "\nНажмите любую клавишу, чтобы продолжить"
-    ignore <| Console.ReadKey true
-    Console.Write ("\r" + String.replicate Console.BufferWidth " " + "\r")
-
-let readString msg =
-    printf "%s" msg
-    Console.ReadLine ()
-
-[<TailCall>]
-let rec readInt msg =
-    printf "%s" msg
-    let input = Console.ReadLine ()
-
-    match Int32.TryParse input with
-    | true, result -> result
-    | false, _ ->
-        printfn "Не удалось распознать число, попробуйте снова"
-        readInt msg
-
-[<TailCall>]
-let rec readDouble msg =
-    printf "%s" msg
-    let input = Console.ReadLine ()
-
-    match Double.TryParse input with
-    | true, result -> result
-    | false, _ ->
-        printfn "Не удалось распознать число, попробуйте снова"
-        readDouble msg
-
 [<TailCall>]
 let rec readSectionBounds () =
     let A = readDouble "Введите левую границу отрезка (A): "
-    let B = readDouble "Введите правую границу отрезка (B): "
+    let B = readDouble "Введите правую границу отрезка (B > A): "
 
     if A < B then A, B
     else
@@ -49,7 +18,7 @@ let rec readSectionBounds () =
 
 [<TailCall>]
 let rec readNumberOfSections () =
-    let N = readInt "Введите число отрезков табуляции (N): "
+    let N = readInt "Введите число отрезков табуляции (N >= 2): "
 
     if N >= 2 then N
     else
@@ -59,7 +28,7 @@ let rec readNumberOfSections () =
 
 [<TailCall>]
 let rec readEpsilon () =
-    let epsilon = readDouble "Введите точность вычисления (epsilon): "
+    let epsilon = readDouble "Введите точность вычисления (epsilon > 0): "
 
     if epsilon > 0 then epsilon
     else

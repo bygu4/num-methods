@@ -28,29 +28,29 @@ type FunctionKind =
     | Exponent
     | Trigonometric
 
-let testFunc  kind =
-    match kind with
+let testFunc =
+    function
     | SecondDegreePolynomial -> f_1
     | ThirdDegreePolynomial -> f_2
     | Exponent -> f_3
     | Trigonometric -> f_4
 
-let testFunc' kind =
-    match kind with
+let testFunc' =
+    function
     | SecondDegreePolynomial -> f_1'
     | ThirdDegreePolynomial -> f_2'
     | Exponent -> f_3'
     | Trigonometric -> f_4'
 
-let testFunc'' kind =
-    match kind with
+let testFunc'' =
+    function
     | SecondDegreePolynomial -> f_1''
     | ThirdDegreePolynomial -> f_2''
     | Exponent -> f_3''
     | Trigonometric -> f_4''
 
-let testFuncStr kind =
-    match kind with
+let testFuncStr =
+    function
     | SecondDegreePolynomial -> "x^2 + 3x - 5"
     | ThirdDegreePolynomial -> "2x^3 - 5x^2 + 1"
     | Exponent -> "e^(x^2)"
