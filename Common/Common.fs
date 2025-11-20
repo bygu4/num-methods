@@ -14,7 +14,7 @@ let waitForAnyKey () =
 
 let readString msg =
     printf "%s" msg
-    Console.ReadLine ()
+    Console.ReadLine().Trim()
 
 [<TailCall>]
 let rec readInt msg =

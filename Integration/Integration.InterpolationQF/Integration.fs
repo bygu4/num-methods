@@ -5,7 +5,7 @@ open MathNet.Numerics.LinearAlgebra
 open Common
 open Functions
 
-// ------------ Интегрирование с помощью ИКФ ------------
+// ------------ Интегрирование с помощью интерполяционных КФ ------------
 
 let private getCoefficients quiet a b points =
     let N = List.length points

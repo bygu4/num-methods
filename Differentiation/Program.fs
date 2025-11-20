@@ -4,7 +4,8 @@ open Differentiation
 open Console
 
 let printHeader () =
-    printfn "Численное дифференцирование"
+    printfn "
+Численное дифференцирование"
 
 // ------------ Меню ------------
 

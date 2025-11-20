@@ -1,7 +1,7 @@
 ﻿open Common
 open Functions
-open Integration
 open Console
+open Integration
 
 let printHeader =
     printfn "
