@@ -1,34 +1,11 @@
 ﻿open Common
 open Functions
+open QuadratureForms
 open Console
-open Integration
 
 let printHeader =
     printfn "
 Численное интегрирование 2"
-
-[<TailCall>]
-let rec readQuadratureForm () =
-    printfn $"
-Доступные КФ:
-\t0 --- использовать все КФ
-\t1 --- {quadratureFormStr RectangleLeft}
-\t2 --- {quadratureFormStr RectangleRight}
-\t3 --- {quadratureFormStr RectangleMiddle}
-\t4 --- {quadratureFormStr Trapezoid}
-\t5 --- {quadratureFormStr Simpson}
-"
-    match readString "Выберите КФ: " with
-    | ""
-    | "0" -> None
-    | "1" -> Some RectangleLeft
-    | "2" -> Some RectangleRight
-    | "3" -> Some RectangleMiddle
-    | "4" -> Some Trapezoid
-    | "5" -> Some Simpson
-    | _ ->
-        printfn "Неизвестная КФ, попробуйте снова"
-        readQuadratureForm ()
 
 // ------------ Меню ------------
 

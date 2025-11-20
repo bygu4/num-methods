@@ -1,6 +1,6 @@
-module Integration
+module QuadratureForms
 
-// ------------ Интегрирование с помощью простейших КФ ------------
+// ------------ Простейшие КФ ------------
 
 let private integrateRectangleLeft f a b = (b - a) * f a
 
@@ -12,7 +12,7 @@ let private integrateTrapezoid f a b = (b - a) / 2.0 * (f a + f b)
 
 let private integrateSimpson f a b = (b - a) / 6.0 * (f a + 4.0 * f ((a + b) / 2.0) + f b)
 
-// ------------ Работа с КФ ------------
+// ------------ Работа с простейшими КФ ------------
 
 type QuadratureForm =
     | RectangleLeft
