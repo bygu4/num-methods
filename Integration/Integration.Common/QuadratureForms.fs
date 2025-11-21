@@ -29,6 +29,14 @@ let quadratureFormIntegrate =
     | Trapezoid -> integrateTrapezoid
     | Simpson -> integrateSimpson
 
+let quadratureFormErrorOrder =
+    function
+    | RectangleLeft -> 2
+    | RectangleRight -> 2
+    | RectangleMiddle -> 3
+    | Trapezoid -> 3
+    | Simpson -> 5
+
 let quadratureFormStr =
     function
     | RectangleLeft -> "КФ левого прямоугольника"

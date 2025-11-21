@@ -4,7 +4,7 @@ open System
 
 open MathNet.Numerics.Integration
 
-let defInt a b antiDerivative = antiDerivative b 0.0 - antiDerivative a 0.0
+let private defInt a b antiDerivative = antiDerivative b 0.0 - antiDerivative a 0.0
 
 // ------------ Весовые функции ------------
 
@@ -64,8 +64,8 @@ type FunctionKind =
     | NthDegreePolynomial
     | Trigonometric
 
-let testFunc n =
-    function
+let testFunc funcKind n =
+    match funcKind with
     | Constant -> f_0
     | FirstDegreePolynomial -> f_1
     | SecondDegreePolynomial -> f_2
@@ -73,8 +73,8 @@ let testFunc n =
     | NthDegreePolynomial -> f_4 n
     | Trigonometric -> f_5
 
-let testFuncInt n a b =
-    function
+let testFuncInt funcKind n a b =
+    match funcKind with
     | Constant -> defInt a b F_0
     | FirstDegreePolynomial -> defInt a b F_1
     | SecondDegreePolynomial -> defInt a b F_2
@@ -82,8 +82,8 @@ let testFuncInt n a b =
     | NthDegreePolynomial -> defInt a b (F_4 n)
     | Trigonometric -> defInt a b F_5
 
-let testFuncWeighedInt n a b =
-    function
+let testFuncWeighedInt funcKind n a b =
+    match funcKind with
     | Constant -> defInt a b F_0_weighed
     | FirstDegreePolynomial -> defInt a b F_1_weighed
     | SecondDegreePolynomial -> defInt a b F_2_weighed

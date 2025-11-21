@@ -3,9 +3,9 @@ open Functions
 open Console
 open Integration
 
-let printHeader =
+let printHeader () =
     printfn "
-Численное интегрирование 1
+Приближенное вычисление определённых интегралов по интерполяционным КФ
 
 Вариант 4
 ρ(x) = x^(-1/4)"
@@ -64,8 +64,8 @@ let rec readSecondMenuAction () =
 
 [<TailCall>]
 let rec openFirstMenu funcKind a b N points =
-    let f = testFunc (N - 1) funcKind
-    let expectedRes = testFuncWeighedInt (N - 1) a b funcKind
+    let f = testFunc funcKind (N - 1)
+    let expectedRes = testFuncWeighedInt funcKind (N - 1) a b
 
     let inline openSecondMenu () =
         match readSecondMenuAction () with
@@ -110,6 +110,7 @@ let rec openFirstMenu funcKind a b N points =
 
 // ------------ Точка входа ------------
 
+printHeader ()
 let funcKind = readFunctionKind ()
 let a, b = readIntervalBounds ()
 let N = readNumberOfPoints ()

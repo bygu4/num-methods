@@ -49,7 +49,7 @@ let rec readFunctionKind2 () =
         readFunctionKind ()
 
 [<TailCall>]
-let rec readQuadratureForm () =
+let rec readQuadratureForms () =
     printfn $"
 Доступные КФ:
 \t0 --- использовать все КФ
@@ -61,15 +61,20 @@ let rec readQuadratureForm () =
 "
     match readString "Выберите КФ: " with
     | ""
-    | "0" -> None
-    | "1" -> Some RectangleLeft
-    | "2" -> Some RectangleRight
-    | "3" -> Some RectangleMiddle
-    | "4" -> Some Trapezoid
-    | "5" -> Some Simpson
+    | "0" -> [
+        RectangleLeft
+        RectangleRight
+        RectangleMiddle
+        Trapezoid
+        Simpson ]
+    | "1" -> [ RectangleLeft ]
+    | "2" -> [ RectangleRight ]
+    | "3" -> [ RectangleMiddle ]
+    | "4" -> [ Trapezoid ]
+    | "5" -> [ Simpson ]
     | _ ->
         printfn "Неизвестная КФ, попробуйте снова"
-        readQuadratureForm ()
+        readQuadratureForms ()
 
 [<TailCall>]
 let rec readIntervalBounds () =
@@ -81,6 +86,26 @@ let rec readIntervalBounds () =
 
     printfn "Требуется a < b, попробуйте снова"
     readIntervalBounds ()
+
+[<TailCall>]
+let rec readNumberOfSections () =
+    let m = readInt "Введите число промежутков деления (m >= 1): "
+
+    if m >= 1 then m
+    else
+
+    printfn "Требуется m >= 1, попробуйте снова"
+    readNumberOfSections ()
+
+[<TailCall>]
+let rec readStepsMultiplier () =
+    let l = readInt "Введите множитель для числа отрезков (l >= 2): "
+
+    if l >= 2 then l
+    else
+
+    printfn "Требуется l >= 2, попробуйте снова"
+    readStepsMultiplier ()
 
 [<TailCall>]
 let rec readNumberOfPoints () =

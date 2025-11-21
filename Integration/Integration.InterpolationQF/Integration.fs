@@ -49,11 +49,11 @@ let integrateIQF quiet f a b points =
 
 let checkErrorIQF quiet a b points =
     let N = List.length points
-    let f = testFunc (N - 1) NthDegreePolynomial
+    let f = testFunc NthDegreePolynomial (N - 1)
     let coefficients = getCoefficients true a b points
 
     log quiet $"\nПроверка на точность ИКФ для g(x) = {testFuncStr NthDegreePolynomial}"
-    let expected = testFuncWeighedInt (N - 1) a b NthDegreePolynomial
+    let expected = testFuncWeighedInt NthDegreePolynomial (N - 1) a b
 
     let actual =
         List.map2 (fun A x -> A * f x) (List.ofArray coefficients) points
