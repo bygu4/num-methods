@@ -31,11 +31,11 @@ let quadratureFormIntegrate =
 
 let quadratureFormErrorOrder =
     function
-    | RectangleLeft -> 2
-    | RectangleRight -> 2
-    | RectangleMiddle -> 3
-    | Trapezoid -> 3
-    | Simpson -> 5
+    | RectangleLeft -> 1
+    | RectangleRight -> 1
+    | RectangleMiddle -> 2
+    | Trapezoid -> 2
+    | Simpson -> 4
 
 let quadratureFormStr =
     function
